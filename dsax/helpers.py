@@ -22,14 +22,14 @@ def animate(func):
 	def wrapper(*args, **kwargs):
 		sizes = []
 		times = []
-		if DEBUG == 1:
+		if DEBUG == 0:
 			for size, t in func(*args, **kwargs):
 				size_format = MAGENTA + func.__name__ + GREY + "_" + YELLOW + "N" +  GREY + "_" + RESET + GREEN + str(size) + " " 
-				time_format = "        " + CYAN + str(t) + RESET + " ms"
+				time_format = "        " + GREY + str(t) + RESET + " ms"
 				print(size_format, time_format)
 				time.sleep(0.5)
 				
-		elif DEBUG == 2:
+		elif DEBUG == 1:
 			for size, t in func(*args, **kwargs):
 				sizes.append(size)
 				times.append(t)
@@ -71,7 +71,7 @@ def _timeit(func, *args, **kwargs):
 	func(*args, **kwargs)
 	et = time.monotonic_ns()
 	
-	t = (et - st) / 1e6 # milli seconds 
+	t = (et - st) / 1e6 # milli-seconds 
 	return et - st
 
 
