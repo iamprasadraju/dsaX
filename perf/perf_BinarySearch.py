@@ -1,10 +1,9 @@
-from dsax.search.BinarySearch import binarysearch
+from dsax.search import binarysearch
 from dsax.helpers import animate, _timeit, generate
-import random
 
 @animate
 def perf_BinarySearch():
-	for size, arr in generate(step=10):
+	for size, arr in generate(step = 10, sort=True):
 		target = arr[-1]
 		time = _timeit(binarysearch, arr, target)
 		yield size, time
