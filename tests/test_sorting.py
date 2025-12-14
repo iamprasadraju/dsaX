@@ -1,6 +1,6 @@
 import unittest
-from dsax.sort import selectionsort, bubblesort, insertionsort
-from dsax.helpers import generate
+from algox.sort import selectionsort, bubblesort, insertionsort
+from algox.helpers import generate
 
 class TestSorting(unittest.TestCase):
 	def test_SelectionSort(self):

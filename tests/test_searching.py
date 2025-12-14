@@ -1,6 +1,6 @@
 import unittest
-from dsax.search import binarysearch, linearsearch
-from dsax.helpers import generate
+from algox.search import binarysearch, linearsearch
+from algox.helpers import generate
 
 class TestSearching(unittest.TestCase):
 	def test_BinarySearch(self):
