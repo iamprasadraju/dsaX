@@ -1,5 +1,5 @@
-from dsax.search import binarysearch
-from dsax.helpers import animate, _timeit, generate
+from algox.search import binarysearch
+from algox.helpers import animate, _timeit, generate
 
 @animate
 def perf_BinarySearch():

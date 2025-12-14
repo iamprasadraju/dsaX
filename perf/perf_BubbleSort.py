@@ -1,10 +1,10 @@
-from dsax.sort.BubbleSort import bubble_sort
-from dsax.helpers import animate, _timeit, generate
+from algox.sort import bubblesort
+from algox.helpers import animate, _timeit, generate
 
 @animate
 def perf_BubbleSort():
-	for size, arr in generate(upper_limit=2000, ste):
-		time = _timeit(bubble_sort, arr)
+	for size, arr in generate(upper_limit=2000, step=20):
+		time = _timeit(bubblesort, arr)
 		yield size, time
 		
 		

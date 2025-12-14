@@ -1,5 +1,5 @@
-from dsax.sort import insertionsort
-from dsax.helpers import generate, _timeit, animate
+from algox.sort import insertionsort
+from algox.helpers import generate, _timeit, animate
 
 
 @animate

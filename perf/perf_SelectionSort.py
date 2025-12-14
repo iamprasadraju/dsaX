@@ -1,5 +1,5 @@
-from dsax.sort import selectionsort
-from dsax.helpers import animate, _timeit, generate
+from algox.sort import selectionsort
+from algox.helpers import animate, _timeit, generate
 import random
 
 @animate
