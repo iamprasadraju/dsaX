@@ -69,13 +69,16 @@ wheels = [
 [[package]]
 name = "dsax"
 version = "0.1.0"
-source = { virtual = "." }
-dependencies = [
+source = { editable = "." }
+
+[package.optional-dependencies]
+perf = [
     { name = "matplotlib" },
 ]
 
 [package.metadata]
-requires-dist = [{ name = "matplotlib", specifier = ">=3.10.8" }]
+requires-dist = [{ name = "matplotlib", marker = "extra == 'perf'", specifier = ">=3.10.8" }]
+provides-extras = ["perf"]
 
 [[package]]
 name = "fonttools"
