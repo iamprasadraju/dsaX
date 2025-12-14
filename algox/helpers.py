@@ -1,8 +1,7 @@
 import os
 import time
 import random
-import matplotlib.pyplot as plt
-from matplotlib.animation import FuncAnimation
+
 
 # ANSI color codes
 RED = "\033[31m"
@@ -30,6 +29,8 @@ def animate(func):
 				time.sleep(0.2)
 				
 		elif DEBUG == 1:
+			import matplotlib.pyplot as plt
+			from matplotlib.animation import FuncAnimation
 			for size, t in func(*args, **kwargs):
 				sizes.append(size)
 				times.append(t)
