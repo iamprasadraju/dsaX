@@ -6,7 +6,7 @@
   <img
     alt="algoX logo"
     src="/docs/algoX-light.png"
-    width="30%"
+    width="40%"
     style="margin-bottom: 0;"
   >
 </picture>
@@ -19,3 +19,4 @@
 ---
 
 **algoX** is a Python library — a collection of data structures and algorithms, all implemented in pure Python.
+
