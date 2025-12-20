@@ -3,6 +3,7 @@ import time
 import random
 import tracemalloc
 import gc
+import functools
 
 # ANSI color codes
 RED = "\033[31m"
@@ -133,11 +134,6 @@ def generate(lower=None, upper=None, step = 10, sort=False):
 		else:
 			yield size, sorted(arr)
 
-def copyargs(args):
-	# Only copy lists, leave other arguments as-is
-	return [arg.copy() if isinstance(arg, list) else arg for arg in args]
-
-
 def memusage(func, *args):
 	gc.collect()
 	tracemalloc.start()
@@ -148,14 +144,28 @@ def memusage(func, *args):
 	
 
 def benchmark(func, *args):
-	#args_time = copyargs(args)
-	#args_mem  = copyargs(args)
-	
 	t = timeit(func, *args)
 	peak = memusage(func, *args)
 	
 	return t, peak
 
 
+def memprofile(func):
+	@functools.wraps(func)
+	def wrapper(*args, **kwargs):
+		if not tracemalloc.is_tracing():
+			tracemalloc.start()
 
-
+		_ = func(*args, **kwargs)
+		
+		# Take a snapshot of the current memory  allocations
+		snapshot = tracemalloc.take_snapshot()
+		top_stats = snapshot.statistics('lineno')
+		
+		print(f"\n[Memory profiling for {func.__name__}]")
+		# Get statistics and display the top 10 memory-consuming lines
+		for stat in top_stats[:10]:
+			print(stat)
+		tracemalloc.stop()
+		return _
+	return wrapper
