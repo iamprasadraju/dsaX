@@ -1,12 +1,11 @@
 from algox.sort import insertionsort
-from algox.helpers import generate, _timeit, animate
+from algox.helpers import generate, benchmark, animate
 
 
 @animate
 def perf_InsertionSort():
 	for size, arr in generate():
-		time = _timeit(insertionsort, arr)
-		yield size, time
-		
+		time, mem = benchmark(insertionsort, arr)
+		yield size, time, mem
 
 perf_InsertionSort()

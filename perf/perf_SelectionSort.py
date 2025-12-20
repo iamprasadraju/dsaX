@@ -1,11 +1,10 @@
 from algox.sort import selectionsort
-from algox.helpers import animate, _timeit, generate
-import random
+from algox.helpers import benchmark, generate, animate
 
 @animate
-def perf_SelectionSort(step=50):
-	for size, arr in generate(upper_limit= 2000):
-		time = _timeit(selectionsort, arr)
-		yield size, time
+def perf_SelectionSort():
+    for size, arr in generate():
+        time, mem = benchmark(selectionsort, arr)
+        yield size, time, mem
 
 perf_SelectionSort()
