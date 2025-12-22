@@ -1,6 +1,8 @@
 import random
 
-arr = [random.randint(1, 10) for _ in range(5)]
+random.seed(42)
+
+arr = [random.randint(1, 10) for _ in range(10)]
 print(arr)
 
 
@@ -12,7 +14,7 @@ class Node:
 class LinkedList:
 	def __init__(self, arr=None):
 		self.head = None
-		self.arr = arr
+		self.tail = None # O(1) for postappend ops 
 		self.len = 0
 		
 		if arr:
@@ -20,21 +22,34 @@ class LinkedList:
 		
 	def build(self, arr):
 		if not arr: return None
-		self.head = Node(arr[0])
+		self.head = self.tail = Node(arr[0]) # Stores memory address of Node
 		self.len = 1
-		tail = self.head
 		
 		for element in arr[1:]:
-			tail.next = Node(element)
-			tail = tail.next
+			self.tail.next = Node(element)
+			self.tail = self.tail.next
 			self.len += 1
 		 
-	def postappend(self, data):
-		pass
+	def postappend(self, data): # O(1)
+		if data is None:
+			return
+		new_node = Node(data)
+		if not self.head:
+			self.head = self.tail = new_node
+		else:
+			self.tail.next = new_node
+			self.tail = new_node # Updates the tail
+			self.len += 1
 		
-	def preappend(slef, data):
-		pass
+	def preappend(self, data): # O(1)
+		if data is None:
+			return 
+		new_node = Node(data)
+		new_node.next = self.head
+		self.head = new_node # Update the head
+		self.len += 1
 	
+		
 	def __iter__(self):
 		current = self.head
 		while current:
@@ -53,6 +68,29 @@ class LinkedList:
 		
 	def __len__(self):
 		return self.len
+	
+	def remove_first(self): # O(1)
+		self.head = self.head.next
+		
+	def remove_last(self): # O(n) in single linkedlist
+		if self.head is None:
+			return None
+		if self.head == self.tail:
+			data = self.head.data
+			self.head = self.tail = None
+			self.len = 0
+			return data
+			
+		current = self.head
+		while current.next != self.tail: # loop until get previous tails node
+			current = current.next
+		
+		data = self.tail.data # Copy data to return
+		current.next = None 
+		self.tail = current
+		self.len -= 1
+		return data
+			
 		
 	def remove(self, idx):
 		pass
@@ -65,6 +103,20 @@ class LinkedList:
 ll = LinkedList(arr)
 print(ll)
 
-print(len(ll))
-for l in ll:
-	print(l)
+
+ll.preappend(9)
+print("After preappend:", ll, "Len: ", len(ll))
+print("________\n")
+
+
+ll.postappend(2)
+print("After postappend:", ll, "Len: ", len(ll))
+print("________\n")
+
+
+ll.remove_first()
+print(ll)
+
+
+ll.remove_last()
+print(ll)
