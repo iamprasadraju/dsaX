@@ -1,11 +1,3 @@
-import random
-
-random.seed(42)
-
-arr = [random.randint(1, 10) for _ in range(10)]
-print(arr)
-
-
 class Node:
 	def __init__(self, data):
 		self.data = data
@@ -89,34 +81,48 @@ class LinkedList:
 		current.next = None 
 		self.tail = current
 		self.len -= 1
-		return data
+		return data	
+		
+	def remove(self, idx): # O(n)
+		if idx < -1 or idx >= self.len:
+			raise IndexError("Invalid index")
 			
+		if idx == 0: # idx = 0 -> remove first element
+			self.remove_first()
+			
+		if idx == -1 or idx == self.len - 1: # idx = -1 -> remove first element
+			self.remove_last()
+			
+		current = self.head
 		
-	def remove(self, idx):
-		pass
+		i = 0
+		while current and i < idx - 1:
+			current = current.next
+			i += 1
 		
-	def insert(self, idx):
-		pass
+		if current and current.next:
+			data = current.next.data # data at idx
+			current.next = current.next.next # mapping to next next node from current  
+			self.len -= 1
+			return data
 		
-
-
-ll = LinkedList(arr)
-print(ll)
-
-
-ll.preappend(9)
-print("After preappend:", ll, "Len: ", len(ll))
-print("________\n")
-
-
-ll.postappend(2)
-print("After postappend:", ll, "Len: ", len(ll))
-print("________\n")
-
-
-ll.remove_first()
-print(ll)
-
-
-ll.remove_last()
-print(ll)
+	def insert(self, data, idx): # O(n)
+		if idx < -1 or idx >= self.len:
+			raise IndexError("Invalid Index")
+		if idx == 0:
+			self.preappend(data)
+		if idx == -1 or idx == self.len - 1:
+			self.postappend(data)
+		
+		new_node = Node(data)
+		current = self.head
+		
+		i = 0
+		while current and i < idx - 1:
+			current = current.next
+			i += 1
+		
+		if current:
+			new_node.next = current.next 
+			current.next = new_node
+			self.len += 1
